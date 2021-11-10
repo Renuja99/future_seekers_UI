@@ -1,4 +1,5 @@
 import React from 'react'
+import { protect } from './authMiddleware'
 
 const dashboard = () => {
     return (
@@ -10,7 +11,7 @@ const dashboard = () => {
             <div class="bg-white h-full dark:bg-gray-700">
                 <div class="flex items-center justify-start pt-6 ml-8">
                     <p class="font-bold dark:text-white text-xl">
-                        Plannifer
+                      Dashboard
                     </p>
                 </div>
                 <nav class="mt-6">
@@ -96,7 +97,7 @@ const dashboard = () => {
                             <img alt="profil" src="/images/person/1.jpg" class="mx-auto object-cover rounded-full h-10 w-10 "/>
                         </a>
                         <button class="flex items-center text-gray-500 dark:text-white text-md">
-                            Charlie R
+                            Renuja R
                             <svg width="20" height="20" class="ml-2 text-gray-400" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1408 704q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z">
                                 </path>
@@ -107,7 +108,7 @@ const dashboard = () => {
             </header>
             <div class="overflow-auto h-screen pb-24 px-4 md:px-6">
                 <h1 class="text-4xl font-semibold text-gray-800 dark:text-white">
-                    Good afternoom, Charlie
+                    Good afternoom, Renuja
                 </h1>
                 <h2 class="text-md text-gray-400">
                     Here&#x27;s what&#x27;s happening with your ambassador account today.
@@ -590,9 +591,45 @@ const dashboard = () => {
     </div>
 </main>
 
-            
         </div>
     )
 }
 
 export default dashboard
+
+
+
+export async function getServerSideProps(context){
+
+
+    const {req, res} = context
+
+    
+
+    
+    const verifiedUser = await protect(req,res)
+
+    if(verifiedUser && (verifiedUser.userType === 'admin')){
+
+        return{
+            props:{
+    
+            }
+        }
+
+    }else{
+
+        return{
+            props:{
+    
+            }
+        }
+
+    }
+
+    
+
+
+    
+
+}
